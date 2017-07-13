@@ -19,7 +19,7 @@ export function dateful (...args: any[]): Dateful {
     }
     if (args.length > 1) {
         if (args.every (isNumber)) {
-            return new Dateful (new Date (Date.UTC (...args)));
+            return new Dateful (new Date (Date.UTC.apply (null, args)));
         }
     }
 }
