@@ -1,6 +1,6 @@
 import test from 'ava';
 import {dateful} from '../factory';
-import {Dateful} from '../../class/dateful-class';
+import {Dateful} from '../class/dateful-class';
 
 test ('always returns an instance of the internal Dateful class', t => {
     const now = dateful ();

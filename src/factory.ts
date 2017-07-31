@@ -1,4 +1,5 @@
-import {Dateful} from '../class/dateful-class';
+import {Dateful} from './class/dateful-class';
+import {isDate, isDateful, isNumber} from "./util/type-util";
 
 export function dateful (): Dateful;
 export function dateful (date: Date): Dateful;
@@ -27,22 +28,4 @@ export function timeless (rawDate: number): Dateful;
 export function timeless (year: number, month: number, date?: number, hours?: number, minutes?: number, seconds?: number, milliseconds?: number): Dateful;
 export function timeless (...args): Dateful {
     return dateful (...args).timeless ();
-}
-
-function isDate (value: any): value is Date {
-    return typeof value === 'object' && (
-        value instanceof Date ||
-        Object.prototype.toString.call (value) === '[object Date]'
-    );
-}
-
-function isDateful (value: any): value is Dateful {
-    return typeof value === 'object' && (
-        value instanceof Dateful ||
-        Object.prototype.toString.call (value) === '[object Dateful]'
-    )
-}
-
-function isNumber (value: any): value is number {
-    return typeof value === 'number';
 }

@@ -1,6 +1,6 @@
 import test from 'ava';
 import {timeless, dateful} from '../factory';
-import {Dateful} from '../../class/dateful-class';
+import {Dateful} from '../class/dateful-class';
 
 test ('takes the same parameters as the factory function `dateful`, and returns a Dateful', t => {
     const timeless1 = timeless ();
