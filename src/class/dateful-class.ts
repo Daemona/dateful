@@ -1,4 +1,4 @@
-import {handleUnitString} from '../util/string-util';
+import {format, handleUnitString} from '../util/string-util';
 import {TIME_PARTS} from "../util/constants";
 import {addTo, removeTime, startOf} from "../util/date-util";
 
@@ -53,6 +53,10 @@ export class Dateful {
     }
 
     // Output methods
+
+    format (formatString: string): string {
+        return format (this.date, formatString);
+    }
 
     isValid (): boolean {
         return !Number.isNaN (this.date.getTime ());

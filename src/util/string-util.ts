@@ -1,4 +1,5 @@
-import {UNITS} from './constants';
+import {UNITS, WEEKDAYS, MONTHS} from './constants';
+import {getOrdinalDate, getWeekNumber} from "./date-util";
 
 export function handleUnitString (string: string): string {
     const unitArrays = {
@@ -20,4 +21,72 @@ export function handleUnitString (string: string): string {
         }
     }
     return string;
+}
+
+export function format (date: Date, formatString: string): string {
+    return formatString
+        .replace ('YYYY',  () => `${date.getUTCFullYear ()}`)
+        .replace ('YY',    () => `${date.getUTCFullYear ()}`.slice (2, 4))
+        .replace ('Month', () => MONTHS.LONG[date.getUTCMonth ()])
+        .replace ('Mnth',  () => MONTHS.SHORT[date.getUTCMonth ()])
+        .replace ('MM',    () => pad (date.getUTCMonth () + 1, 2))
+        .replace ('Www',   () => `W${pad (getWeekNumber (date), 2)}`)
+        .replace ('Day',   () => WEEKDAYS[date.getUTCDay ()])
+        .replace ('DDD',   () => `${getOrdinalDate (date)}`)
+        .replace ('DD',    () => pad (date.getUTCDate (), 2))
+        .replace ('Dth',   () => getOrdinalNumber (date.getUTCDate ()))
+        .replace ('D',     () => `${date.getUTCDay () || 7}`)
+        .replace ('hh.hhh',() => timeToDecimalHours (date, 3))
+        .replace ('hh.hh', () => timeToDecimalHours (date, 2))
+        .replace ('hh.h',  () => timeToDecimalHours (date, 1))
+        .replace ('hh',    () => pad (date.getUTCHours (), 2))
+        .replace ('mm.mmm',() => timeToDecimalMinutes (date, 3))
+        .replace ('mm.mm', () => timeToDecimalMinutes (date, 2))
+        .replace ('mm.m',  () => timeToDecimalMinutes (date, 1))
+        .replace ('mm',    () => pad (date.getUTCMinutes (), 2))
+        .replace ('ss.sss',() => timeToDecimalSeconds (date, 3))
+        .replace ('ss.ss', () => timeToDecimalSeconds (date, 2))
+        .replace ('ss.s',  () => timeToDecimalSeconds (date, 1))
+        .replace ('ss',    () => pad (date.getUTCSeconds (), 2));
+}
+
+function getOrdinalNumber (number: number): string {
+    if ([1,2,3].includes (number % 10) && Math.floor (number / 10) % 10 !== 1) {
+        switch (number % 10) {
+            case 1:
+                return `${number}st`;
+            case 2:
+                return `${number}nd`;
+            case 3:
+                return `${number}rd`;
+        }
+    }
+    return `${number}th`;
+}
+
+function timeToDecimalHours (date: Date, dp: number): string {
+    const hours = date.getUTCHours ();
+    const fraction = (date.getUTCMinutes () / 60) + (date.getUTCSeconds () / 3600) + (date.getMilliseconds () / 3600000);
+    return `${pad (hours, 2)}.${roundFraction (fraction, dp)}`;
+}
+
+function timeToDecimalMinutes (date: Date, dp: number): string {
+    const minutes = date.getUTCMinutes ();
+    const fraction = (date.getUTCSeconds () / 60) + (date.getUTCMilliseconds () / 60000);
+    return `${pad (minutes, 2)}.${roundFraction (fraction, dp)}`;
+}
+
+function timeToDecimalSeconds (date: Date, dp: number): string {
+    const seconds = date.getUTCSeconds ();
+    const fraction = date.getMilliseconds () / 1000;
+    return `${pad (seconds, 2)}.${roundFraction (fraction, dp)}`;
+}
+
+function roundFraction (number: number, dp: number): string {
+    const multiple = Math.pow (10, dp);
+    return `${Math.round (number * multiple)}`;
+}
+
+function pad (number: string | number, digits: number): string {
+    return number.toString ().padStart (digits, '0');
 }
