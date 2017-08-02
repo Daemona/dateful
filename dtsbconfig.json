@@ -1,0 +1,7 @@
+{
+  "name"                 : "dateful",
+  "main"                 : "src/factory.d.ts",
+  "out"                  : "../dist/dateful.d.ts",
+  "removeSource"         : true,
+  "outputAsModuleFolder" : true
+}

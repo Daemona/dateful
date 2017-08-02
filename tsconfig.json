@@ -1,8 +1,14 @@
 {
-  "compilerOptions" : {
+  "compilerOptions"                : {
     "module"      : "commonjs",
-    "target"      : "es2017",
-    "declaration" : true,
-    "sourceMap"   : true
+    "target"      : "es2017"
+  },
+  "awesomeTypescriptLoaderOptions" : {
+    "useBabel"     : true,
+    "babelOptions" : {
+      "presets" : [
+        "env"
+      ]
+    }
   }
 }

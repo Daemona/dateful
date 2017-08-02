@@ -1,8 +1,8 @@
 {
   "name"            : "dateful",
   "version"         : "0.0.0",
-  "description"     : "A slim and fast library for dates in JavaScript. Yes, another one.",
-  "author"          : "A Shepherd <dev+github@amshepherd.com>",
+  "description"     : "A slim library for dates in JavaScript. Yes, another one.",
+  "author"          : "Daemona <dev+github@amshepherd.com>",
   "license"         : "MIT",
   "repository"      : {
     "type" : "git",
@@ -12,11 +12,16 @@
     "date"
   ],
   "scripts"         : {
-    "compile" : "tsc",
-    "test"    : "tsc && ava"
+    "bundle-dts" : "dts-bundle --configJson dtsbconfig.json",
+    "create-pkg" : "cp package.json dist/package.json",
+    "bundle"     : "webpack && yarn run bundle-dts && yarn run create-pkg",
+    "test"       : "tsc && ava"
   },
   "devDependencies" : {
-    "ava"        : "^0.21.0",
-    "typescript" : "^2.4.1"
+    "ava"                       : "^0.21.0",
+    "awesome-typescript-loader" : "^3.2.2",
+    "babel-preset-env"          : "^1.6.0",
+    "typescript"                : "^2.4.1",
+    "webpack"                   : "^3.4.1"
   }
 }
