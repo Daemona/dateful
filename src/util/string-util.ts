@@ -83,8 +83,7 @@ function timeToDecimalSeconds (date: Date, dp: number): string {
 }
 
 function roundFraction (number: number, dp: number): string {
-    const multiple = Math.pow (10, dp);
-    return `${Math.round (number * multiple)}`;
+    return `${Math.round (number * (10 ** dp))}`;
 }
 
 function pad (number: string | number, digits: number): string {
