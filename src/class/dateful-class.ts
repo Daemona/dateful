@@ -32,6 +32,15 @@ export class Dateful {
         return this;
     }
 
+    cancelTimezoneOffset (): Dateful {
+        if (this._timeless) {
+            console.error ('Cannot alter time in timeless mode');
+            return this;
+        }
+        return this
+            .subtract (new Date ().getTimezoneOffset (), 'minutes');
+    }
+
     startOf (unitString: string): Dateful {
         const handledString = handleUnitString (unitString);
         startOf (handledString, this.date);
