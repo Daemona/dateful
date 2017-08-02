@@ -1,6 +1,6 @@
 {
   "name"            : "dateful",
-  "version"         : "0.1.0",
+  "version"         : "0.1.1",
   "description"     : "A slim library for dates in JavaScript. Yes, another one.",
   "author"          : "Daemona <dev+github@amshepherd.com>",
   "license"         : "MIT",
