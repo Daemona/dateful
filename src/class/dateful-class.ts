@@ -6,8 +6,11 @@ export class Dateful {
     private date: Date;
     private _timeless: boolean;
 
-    constructor (date: Date | Dateful) {
+    constructor (date: Date | Dateful, fixTimezoneOffset?: boolean) {
         this.date = new Date (date.valueOf ());
+        if (fixTimezoneOffset) {
+            this.subtract (this.date.getTimezoneOffset (), 'minutes');
+        }
         if (date instanceof Dateful) {
             this._timeless = date._timeless;
         }
@@ -30,15 +33,6 @@ export class Dateful {
             removeTime (this.date);
         }
         return this;
-    }
-
-    cancelTimezoneOffset (): Dateful {
-        if (this._timeless) {
-            console.error ('Cannot alter time in timeless mode');
-            return this;
-        }
-        return this
-            .subtract (new Date ().getTimezoneOffset (), 'minutes');
     }
 
     startOf (unitString: string): Dateful {

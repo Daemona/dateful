@@ -17,3 +17,12 @@ test ('can take a Dateful as parameter and clones that Dateful', t => {
     t.not (dateful1.value (), dateful2.value ());
     t.deepEqual (dateful1, dateful2);
 });
+
+test ('takes an optional boolean parameter that determines whether to undo the effects of the timezone offset', t => {
+    const date = new Date ();
+    const offset = date.getTimezoneOffset ()*60*1000;// in ms
+    const offByABit = new Dateful (date);
+    const fixed = new Dateful (date, true);
+
+    t.is (fixed.valueOf (), offByABit.valueOf () - offset);
+});

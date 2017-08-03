@@ -6,7 +6,7 @@ test ('always returns an instance of the internal Dateful class', t => {
     const now = dateful ();
     t.true (now instanceof Dateful);
 
-    const stAndrewsDay = dateful (2016, 10, 30);
+    const stAndrewsDay = dateful ([2016, 10, 30]);
     t.true (stAndrewsDay instanceof Dateful);
 
     const theEpoch = dateful (0);
@@ -54,18 +54,18 @@ test ('when passed a Dateful, returns a clone of that Dateful', t => {
     t.deepEqual (dateful1, dateful2);
 });
 
-test ('when passed more than one number, uses them as the year, month, date, hours, minutes, seconds and milliseconds to build a Dateful', t => {
-    const thisTestWasWrittenAt = dateful (2017, 6, 27, 10, 36, 15, 233);
+test ('when passed an array of numbers, uses them as the year, month, date, hours, minutes, seconds and milliseconds to build a Dateful', t => {
+    const thisTestWasWrittenAt = dateful ([2017, 6, 27, 10, 36, 15, 233]);
 
     t.is (thisTestWasWrittenAt.toString (), '2017-07-27T10:36:15.233Z');
 });
 
-test ('when some of the numbers are dropped from the params, defaults to the lowest possible value', t => {
-    const noMilliseconds = dateful (2017, 6, 27, 10, 36, 15);
-    const noSeconds      = dateful (2017, 6, 27, 10, 36);
-    const noMinutes      = dateful (2017, 6, 27, 10);
-    const noHours        = dateful (2017, 6, 27);
-    const noDays         = dateful (2017, 6);
+test ('when some of the numbers are dropped from the array, defaults to the lowest possible value', t => {
+    const noMilliseconds = dateful ([2017, 6, 27, 10, 36, 15]);
+    const noSeconds      = dateful ([2017, 6, 27, 10, 36]);
+    const noMinutes      = dateful ([2017, 6, 27, 10]);
+    const noHours        = dateful ([2017, 6, 27]);
+    const noDays         = dateful ([2017, 6]);
 
     t.is (noMilliseconds.toString (), '2017-07-27T10:36:15.000Z');
     t.is (noSeconds.toString (),      '2017-07-27T10:36:00.000Z');

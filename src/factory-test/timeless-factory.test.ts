@@ -7,7 +7,7 @@ test ('takes the same parameters as the factory function `dateful`, and returns 
     const timeless2 = timeless (new Date ());
     const timeless3 = timeless (dateful ());
     const timeless4 = timeless (0);
-    const timeless5 = timeless (2017, 0, 1);
+    const timeless5 = timeless ([2017, 0, 1]);
 
     t.true (timeless1 instanceof Dateful);
     t.true (timeless2 instanceof Dateful);

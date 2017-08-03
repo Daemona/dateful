@@ -1,7 +1,7 @@
 import test from 'ava';
 import {Dateful} from '../dateful-class';
 
-test ('If passed true, strips out the hours, minutes, seconds and milliseconds', t => {
+test ('if passed true, strips out the hours, minutes, seconds and milliseconds', t => {
     const date = new Date (Date.UTC (2017, 0, 1, 10, 10, 10, 100));
     const timeless = new Dateful (date).timeless (true).value ();
 
@@ -16,7 +16,7 @@ test ('If passed true, strips out the hours, minutes, seconds and milliseconds',
     t.is (timeless.getUTCHours (),        0);
 });
 
-test ('If passed true, prevents subsequent changes to the time (h,m,s,ms)', t => {
+test ('if passed true, prevents subsequent changes to the time (h,m,s,ms)', t => {
     const date = new Date (Date.UTC (2017, 0, 1));
     const timeless = new Dateful (date).timeless (true);
 
@@ -25,7 +25,7 @@ test ('If passed true, prevents subsequent changes to the time (h,m,s,ms)', t =>
     t.is (timeless.value ().getUTCHours (), 0);
 });
 
-test ('If not given a parameter, defaults to true', t => {
+test ('if not given a parameter, defaults to true', t => {
     const date = new Date (Date.UTC (2017, 0, 1, 10, 10, 10, 100));
     const timeless = new Dateful (date).timeless ().value ();
 
@@ -40,7 +40,7 @@ test ('If not given a parameter, defaults to true', t => {
     t.is (timeless.getUTCHours (),        0);
 });
 
-test ('If passed false, allows the time (h,m,s,ms) to be altered', t => {
+test ('if passed false, allows the time (h,m,s,ms) to be altered', t => {
     const date = new Date (Date.UTC (2017, 0, 1));
     const timeless = new Dateful (date).timeless ();
 

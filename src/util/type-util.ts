@@ -21,3 +21,11 @@ export function isNumber (value: any): value is number {
 export function isUndefined (value: any): boolean {
     return value === void 0;
 }
+
+export function isArray (value: any): value is Array<any> {
+    return Array.isArray (value);
+}
+
+export function isBoolean (value: any): value is boolean {
+    return typeof value === 'boolean';
+}

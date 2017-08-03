@@ -1,11 +1,11 @@
 import test from 'ava';
-import {isDateful, isDate, isNumber, isUndefined} from '../type-util';
+import {isDateful, isDate, isNumber, isUndefined, isArray, isBoolean} from '../type-util';
 import {Dateful} from "../../class/dateful-class";
 import {dateful} from "../../factory";
 
 test ('isDateful returns true if passed an object of type Dateful', t => {
     t.true (isDateful (new Dateful (new Date ())));
-    t.true (isDateful (dateful (2017, 6, 27)));
+    t.true (isDateful (dateful ([2017, 6, 27])));
 });
 
 test ('isDateful returns false if passed anything other than a Dateful', t => {
@@ -62,4 +62,39 @@ test ('isDateful returns false if passed anything other than a Dateful', t => {
     t.false (isUndefined (null));
     t.false (isUndefined ({}));
     t.false (isUndefined ([]));
+});
+
+test ('isArray returns true if passed an array', t => {
+    t.true (isArray ([]));
+    t.true (isArray (new Array (5)));
+    t.true (isArray (returnArray (1, 2, 3)));
+
+    function returnArray (...args) {
+        return args;
+    }
+});
+
+test ('isArray returns false if passed anything other than an array', t => {
+    t.false (isArray (new Date ()));
+    t.false (isArray ('dateful'));
+    t.false (isArray (void 0));
+    t.false (isArray (23));
+    t.false (isArray (null));
+    t.false (isArray ({}));
+});
+
+test ('isBoolean returns true if passed a boolean', t => {
+    t.true (isBoolean (true));
+    t.true (isBoolean (false));
+    t.true (isBoolean (!0));
+});
+
+test ('isBoolean returns false if passed anything other than a boolean', t => {
+    t.false (isBoolean (new Date ()));
+    t.false (isBoolean ('dateful'));
+    t.false (isBoolean (void 0));
+    t.false (isBoolean (23));
+    t.false (isBoolean (null));
+    t.false (isBoolean ({}));
+    t.false (isBoolean ([]));
 });

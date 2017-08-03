@@ -1,31 +1,37 @@
 import {Dateful} from './class/dateful-class';
-import {isDate, isDateful, isNumber} from "./util/type-util";
+import {isDate, isDateful, isNumber, isArray, isBoolean} from "./util/type-util";
 
-export function dateful (): Dateful;
-export function dateful (date: Date): Dateful;
-export function dateful (dateful: Dateful): Dateful;
-export function dateful (rawDate: number): Dateful;
-export function dateful (year: number, month: number, date?: number, hours?: number, minutes?: number, seconds?: number, milliseconds?: number): Dateful;
-export function dateful (...args: any[]): Dateful {
-    if (args.length === 1) {
-        if (isDate (args[0]) || isDateful (args[0])) {
-            return new Dateful (args[0]);
-        }
-        return new Dateful (new Date (args[0]));
+export function dateful (date: Date, fixTimezoneOffset?: boolean): Dateful;
+export function dateful (dateful: Dateful, fixTimezoneOffset?: boolean): Dateful;
+export function dateful (rawDate: number, fixTimezoneOffset?: boolean): Dateful;
+export function dateful (dateParts: number[], fixTimezoneOffset?: boolean): Dateful;
+export function dateful (fixTimezoneOffset?: boolean): Dateful;
+export function dateful (date?: Date | Dateful | number | number[] | boolean, fixTimezoneOffset?: boolean): Dateful {
+    if (isDate (date) || isDateful (date)) {
+        return new Dateful (date, fixTimezoneOffset);
     }
-    if (args.length > 1) {
-        if (args.every (isNumber)) {
-            return new Dateful (new Date (Date.UTC.apply (Date, args)));
+    if (isNumber (date)) {
+        return new Dateful (new Date (date), fixTimezoneOffset);
+    }
+    if (isArray (date) && date.every (isNumber)) {
+        if (date.length === 1) {
+            // We assume an array means the consumer wants to treat the one number in it as the year,
+            // so add a value for the month in order to make the Date constructor use it as such.
+            date.push (0);
         }
+        return new Dateful (new Date (Date.UTC.apply (Date, date)), fixTimezoneOffset);
+    }
+    if (isBoolean (date)) {
+        return new Dateful (new Date (), date);
     }
     return new Dateful (new Date ());
 }
 
-export function timeless (): Dateful;
-export function timeless (date: Date): Dateful;
-export function timeless (dateful: Dateful): Dateful;
-export function timeless (rawDate: number): Dateful;
-export function timeless (year: number, month: number, date?: number, hours?: number, minutes?: number, seconds?: number, milliseconds?: number): Dateful;
+export function timeless (date: Date, fixTimezoneOffset?: boolean): Dateful;
+export function timeless (dateful: Dateful, fixTimezoneOffset?: boolean): Dateful;
+export function timeless (rawDate: number, fixTimezoneOffset?: boolean): Dateful;
+export function timeless (dateParts: number[], fixTimezoneOffset?: boolean): Dateful;
+export function timeless (fixTimezoneOffset?: boolean): Dateful;
 export function timeless (...args): Dateful {
     return dateful (...args).timeless ();
 }
