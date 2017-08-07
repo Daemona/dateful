@@ -17,6 +17,15 @@ export function getOrdinalDate (date: Date): number {
     return msToDays (difference (date, new Date (date.getUTCFullYear (), 0))) + 1;
 }
 
+export function set (value: number, unitString: string, date: Date): void {
+    if (DATE_PARTS.includes (unitString)) {
+        setDatePart (value, unitString, date);
+    }
+    else {
+        setTimePart (value, unitString, date);
+    }
+}
+
 export function addTo (value: number, unitString: string, date: Date): void {
     if (DATE_PARTS.includes (unitString)) {
         addToDatePart (value, unitString, date);
@@ -58,6 +67,49 @@ function stripOut (unitString: string, date: Date): void {
         case UNITS.SECOND:
         case UNITS.MILLISECOND:
             stripOutTimePart (unitString, date);
+            break;
+    }
+}
+
+function setDatePart (value: number, unitString: string, date: Date): void {
+    switch (unitString) {
+        case UNITS.MILLENNIUM:
+            date.setUTCFullYear (value + (date.getUTCFullYear () % 1000));
+            break;
+        case UNITS.CENTURY:
+            date.setUTCFullYear (value + (date.getUTCFullYear () % 100));
+            break;
+        case UNITS.DECADE:
+            date.setUTCFullYear (value + (date.getUTCFullYear () % 10));
+            break;
+        case UNITS.YEAR:
+            date.setUTCFullYear (value);
+            break;
+        case UNITS.MONTH:
+            date.setUTCMonth (value);
+            break;
+        case UNITS.WEEK:
+            date.setUTCDate (value * 7);
+            break;
+        case UNITS.DAY:
+            date.setUTCDate (value);
+            break;
+    }
+}
+
+function setTimePart (value: number, unitString: string, date: Date): void {
+    switch (unitString) {
+        case UNITS.HOUR:
+            date.setUTCHours (value);
+            break;
+        case UNITS.MINUTE:
+            date.setUTCMinutes (value);
+            break;
+        case UNITS.SECOND:
+            date.setUTCSeconds (value);
+            break;
+        case UNITS.MILLISECOND:
+            date.setUTCMilliseconds (value);
             break;
     }
 }
