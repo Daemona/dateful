@@ -111,7 +111,7 @@ dateful ()
     .format ('hh:mm:ss.sss'); // -> '00:00:00.000'
 ```
 
-## Formatting
+### Formatting
 
 Often, you'll want to be able to display your date/time in a nice way, or format it in exactly the right way for an API call. The output method `format` allows you to do this. `format` is simple to use: pass it a string containing any of the following representations, and it will return a string with those characters replaced with the values they represent.
 
@@ -155,7 +155,7 @@ fortyFiveSecs.format ('mm.mm');  // -> '30.75'
 fortyFiveSecs.format ('mm.m');   // -> '30.8'
 ```
 
-Odd as it may seem, it *is* a valid part of ISO 8601, and so is included here.
+Odd as it may seem, it *is* a valid part of [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601), and so is included here.
 
 ## So why does it exist?
 
