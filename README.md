@@ -115,21 +115,22 @@ dateful ()
 
 Often, you'll want to be able to display your date/time in a nice way, or format it in exactly the right way for an API call. The output method `format` allows you to do this. `format` is simple to use: pass it a string containing any of the following representations, and it will return a string with those characters replaced with the values they represent.
 
-|Characters|Date part             |Example|
-|----------|----------------------|-------|
-|YYYY      |Full year             |2017   |
-|YY        |Short year            |17     |
-|Month     |Month name            |January|
-|Mnth      |Abbr month name       |Jan    |
-|MM        |Month number          |01     |
-|Www       |Week number           |W30    |
-|Day       |Day name              |Monday |
-|DDD       |Ordinal date*         |124    |
-|DD        |Date (zero-padded)    |07     |
-|Dth       |Date (ordinal)**      |7th    |
-|D         |Day of the week (1-7) |2      |
+|Characters|Date part                   |Example|
+|----------|----------------------------|-------|
+|YYYY      |Full year                   |2017   |
+|YY        |Short year                  |17     |
+|Month     |Month name                  |January|
+|Mnth      |Abbr month name             |Jan    |
+|MM        |Month number                |01     |
+|Www       |Week number                 |W30    |
+|Day       |Day name                    |Monday |
+|DDD       |Ordinal date (zero-padded)* |124    |
+|DD        |Date (zero-padded)          |07     |
+|Dth       |Date (ordinal)**            |7th    |
+|D         |Day of the week (1-7)       |2      |
 
 *Number of days into the year. 1st of February is day 32, etc.
+
 **Date of the month, but with the "-st", "-nd", "-rd" or "-th" ending.
 
 The time component can also be rendered by `format`. The following table shows the characters to use.
