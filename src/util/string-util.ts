@@ -1,5 +1,7 @@
 import {UNITS, WEEKDAYS, MONTHS} from './constants';
 import {getOrdinalDate, getWeekNumber} from "./date-util";
+import {Dateful} from "../class/dateful-class";
+import {isUndefined} from "./type-util";
 
 export function handleUnitString (string: string): string {
     const unitArrays = {
@@ -48,6 +50,51 @@ export function format (date: Date, formatString: string): string {
         .replace ('ss.ss', () => timeToDecimalSeconds (date, 2))
         .replace ('ss.s',  () => timeToDecimalSeconds (date, 1))
         .replace ('ss',    () => pad (date.getUTCSeconds (), 2));
+}
+
+export function parseString (dateString: string): Dateful {
+    return parseISOString (dateString)
+        || parseRFCString (dateString)
+        || parseNaturalString (dateString)
+        || new Dateful (new Date (dateString));
+}
+
+function parseISOString (dateString: string): Dateful {
+    if (dateString.length >= 4) {
+        const [dateStamp, timeStamp] = dateString.split ('T');
+        const [year, month, date] = parseDatePart (dateStamp);
+        const [hours, minutes, seconds, milliseconds] = parseTimePart (timeStamp);
+
+        const dateful = new Dateful (new Date (year, month, date, hours, minutes, seconds, milliseconds));
+
+        if (dateful.isValid ()) {
+            return dateful;
+        }
+        else {
+            return void 0;
+        }
+    }
+
+    function parseDatePart (dateString: string): number[] {
+        // Check for extended format first
+
+        /*todo*/
+    }
+
+    function parseTimePart (timeString: string): number[] {
+        if (isUndefined (timeString)) {
+            return [];
+        }
+        /*todo*/
+    }
+}
+
+function parseRFCString (dateString: string): Dateful {
+    /*todo*/
+}
+
+function parseNaturalString (dateString: string): Dateful {
+    /*todo*/
 }
 
 function getOrdinalNumber (number: number): string {
